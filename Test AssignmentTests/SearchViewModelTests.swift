@@ -17,6 +17,8 @@ class SearchViewModelTests: XCTestCase {
     var searchViewModel: SearchViewModel!
     var scheduler: ConcurrentDispatchQueueScheduler!
     var testScheduler: TestScheduler!
+    
+    fileprivate var service : ApiForumService!
 
     override func setUp() {
         super.setUp()
@@ -34,15 +36,62 @@ class SearchViewModelTests: XCTestCase {
         super.tearDown()
     }
     // MARK: - RxTest
-        func testWhenInitialStateSubmitButtonIsDisabled() {
-            let isSubmitButtonEnabled = testScheduler.createObserver(Bool.self)
+
+    func testButtonIsDisabled() {
+        let isSubmitButtonEnabled = testScheduler.createObserver(Bool.self)
+
+        searchViewModel = SearchViewModel()
+        searchViewModel.isSubmitButtonEnabled
+            .bind(to: isSubmitButtonEnabled)
+            .disposed(by: DisposeBag())
+        XCTAssertRecordedElements(isSubmitButtonEnabled.events, [false])
+
+        }
         
+        func testButtonIsEnabled() {
+            let isSubmitButtonEnabled = testScheduler.createObserver(Bool.self)
+
+            searchViewModel = SearchViewModel()
+            searchViewModel.loginBehavior.accept("dd")
             searchViewModel.isSubmitButtonEnabled
                 .bind(to: isSubmitButtonEnabled)
                 .disposed(by: DisposeBag())
+            XCTAssertRecordedElements(isSubmitButtonEnabled.events, [true])
 
-            XCTAssertRecordedElements(isSubmitButtonEnabled.events, [false])
-        
         }
     
+
+        func testFetchData() {
+            let isFetchData = testScheduler.createObserver(Bool.self)
+            searchViewModel.loginBehavior.accept("sd")
+            searchViewModel.fetchUsers(page: 1)
+                .subscribe(onCompleted: { [weak self]  in
+                   
+                    XCTAssertRecordedElements(isFetchData.events, [true])
+                }, onError: { [weak self] error in
+                    XCTFail(error.localizedDescription)
+                  
+                })
+                .disposed(by: disposeBag)
+                   
+            testScheduler.start()
+                   
+    
+        }
+    func testFetchDataWithError() {
+        let isFetchData = testScheduler.createObserver(Bool.self)
+        searchViewModel.fetchUsers(page: 1)
+            .subscribe(onCompleted: { [weak self]  in
+               
+                XCTAssertRecordedElements(isFetchData.events, [true])
+            }, onError: { [weak self] error in
+                XCTFail(error.localizedDescription)
+              
+            })
+            .disposed(by: disposeBag)
+               
+        testScheduler.start()
+               
+
+    }
 }
