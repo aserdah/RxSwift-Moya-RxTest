@@ -45,7 +45,7 @@ class LoginController: UIViewController {
     
     
     func subscribeIsLoginEnabled() {
-        searchViewModel.isSubmitButtonEnapled.bind(to: submitButton.rx.isEnabled).disposed(by: disposeBag)
+        searchViewModel.isSubmitButtonEnabled.bind(to: submitButton.rx.isEnabled).disposed(by: disposeBag)
     }
     func subscribeToLoginButton() {
         submitButton.rx.tap

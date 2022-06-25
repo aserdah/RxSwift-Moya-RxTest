@@ -22,7 +22,7 @@ class SearchViewModel {
     
     private var resultsModelSubject = PublishSubject<[UserModel]>()
     
-    var isSubmitButtonEnapled: Observable<Bool> {
+    var isSubmitButtonEnabled: Observable<Bool> {
         return loginBehavior.asObservable().map { (login) -> Bool in
             
             let isLoginEmpty = login.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
