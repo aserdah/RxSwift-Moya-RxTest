@@ -17,7 +17,7 @@ class SearchViewModelTests: XCTestCase {
     var searchViewModel: SearchViewModel!
     var scheduler: ConcurrentDispatchQueueScheduler!
     var testScheduler: TestScheduler!
-    
+  
     fileprivate var service : ApiForumService!
 
     override func setUp() {
@@ -94,4 +94,7 @@ class SearchViewModelTests: XCTestCase {
                
 
     }
+    
+    
+
 }

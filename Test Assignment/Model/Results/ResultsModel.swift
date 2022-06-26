@@ -9,9 +9,9 @@ import Foundation
 
 // MARK: - ResultsModel
 struct ResultsModel: Codable {
-    let totalCount: Int
-    let incompleteResults: Bool
-    let items: [UserModel]
+    var totalCount: Int
+    var incompleteResults: Bool
+    var items: [UserModel]
 
     enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"
@@ -22,19 +22,19 @@ struct ResultsModel: Codable {
 
 // MARK: - User
 struct UserModel: Codable {
-    let login: String
-    let id: Int
-    let nodeID: String
-    let avatarURL: String
-    let gravatarID: String
-    let url, htmlURL, followersURL: String
-    let followingURL, gistsURL, starredURL: String
-    let subscriptionsURL, organizationsURL, reposURL: String
-    let eventsURL: String
-    let receivedEventsURL: String
-    let type: AccountType
-    let siteAdmin: Bool
-    let score: Int
+    var login: String
+    var id: Int
+    var nodeID: String
+    var avatarURL: String
+    var gravatarID: String
+    var url, htmlURL, followersURL: String
+    var followingURL, gistsURL, starredURL: String
+    var subscriptionsURL, organizationsURL, reposURL: String
+    var eventsURL: String
+    var receivedEventsURL: String
+    var type: AccountType
+    var siteAdmin: Bool
+    var score: Int
 
     enum CodingKeys: String, CodingKey {
         case login, id

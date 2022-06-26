@@ -50,7 +50,8 @@ class SearchViewModel {
                     guard let self = self else { return }
                     
                     self.loadingBehavior.accept(false)
-                    self.resultsModelSubject.onNext(result.items)
+                 
+                    self.resultsModelSubject.onNext(self.sortResult(items: result.items))
                     if result.items.count <= 9 {
                         self.loadMoreBehavior.accept(false)
                     }
@@ -63,6 +64,12 @@ class SearchViewModel {
         }
         
         
+    }
+    
+    func sortResult(items: [UserModel]) -> [UserModel] {
+        
+      
+        return items.sorted { $0.login < $1.login }
     }
     
 }
